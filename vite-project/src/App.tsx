@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import play_svg from '../src/assets/play.svg'
-
 function TextToSpeechConverter() {
   const [text, setText] = useState("");
 
@@ -14,15 +12,9 @@ function TextToSpeechConverter() {
     }
   };
 
-let voices =[];
-let voiceSelect = document.querySelector('select');
-
-  window.speechSynthesis.addEventListener('voiceschanged', () => {
-  voices = window.speechSynthesis.getVoices();
-  voiceSelect.innerHTML = voices
-    .map((voice) => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
-    .join('');
-});
+  const handleStopClick = () => {
+    window.speechSynthesis.cancel();
+  };
 
 
   return (
@@ -48,6 +40,7 @@ let voiceSelect = document.querySelector('select');
           >
             <span className="material-icons"></span> Listen
           </button>
+          <button onClick={handleStopClick} className="flex items-center cursor-pointer gap-2 px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition-all duration-300"> Stop Voice</button>
         </div>
       </div>
     </div>
